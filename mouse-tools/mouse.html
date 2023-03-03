@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+    <!-- Load the Paper.js library -->
+    <script type="text/javascript" src="js/paper.js"></script>
+    <style>
+        html,
+      body {
+          height: 100%;
+      }
+      
+      /* Scale canvas with resize attribute to full size */
+      canvas[resize] {
+          width: 100%;
+          height: 100%;
+      }
+      </style>
+    <!-- Define inlined PaperScript associate it with myCanvas -->
+    <script type="text/paperscript" canvas="myCanvas">
+      tool.maxDistance = 50;
+
+
+      function onMouseDrag(event) {
+        var circle = new Path.Circle({
+          center: event.middlePoint,
+          radius: event.delta.length / 2
+        });
+
+        if (event.delta.length > 30) {
+            var r = event.delta.length / 50
+            circle.fillColor = new Color(r, r / 4, r / 4);
+        } else if (event.delta.length > 20) {
+            var g = event.delta.length / 30
+            circle.fillColor = new Color(g / 4, g, g / 2);
+        } else {
+            var b = event.delta.length / 20
+            circle.fillColor = new Color(b / 4, b / 2, b);
+        }
+      }
+    </script>
+
+    </head>
+    <body>
+      <canvas id="myCanvas" resize></canvas>
+    </body>
+</html>
